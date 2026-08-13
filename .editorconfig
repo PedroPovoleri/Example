@@ -9,20 +9,14 @@ indent_size = 4
 trim_trailing_whitespace = true
 
 [*.cs]
-# Enforce primary constructor syntax for C# classes.
-csharp_prefer_primary_constructors = true:error
+# Fails the solution when a class uses a non-primary constructor.
 dotnet_diagnostic.IDE0290.severity = error
 
-# Keep the project style strict and consistent.
-# The following style analyzers are intentionally enforced at build time.
+# Fails the solution when the API layer is implemented with controllers instead of handlers.
+# This complements the project-level validation target that rejects ControllerBase or MapControllers.
 
-# This project is intentionally minimal API + handler-based.
-# Controllers are disallowed, so build should fail if MapControllers or ControllerBase is used.
-dotnet_diagnostic.IDE0060.severity = none
+# Keep the project style explicit and consistent.
+csharp_prefer_primary_constructors = true:error
 
-# Keep code clean and explicit.
-# csharp_style_var_when_type_is_obvious = true:error
-# csharp_style_expression_bodied_methods = true:error
-
-# Do not require XML docs for internal code.
+# Avoid XML-doc noise for this sample project.
 dotnet_diagnostic.CS1591.severity = none

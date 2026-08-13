@@ -17,8 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ResumeHexagonal.Api\ResumeHexagonal.Api.csproj" />
     <ProjectReference Include="..\ResumeHexagonal.Application\ResumeHexagonal.Application.csproj" />
     <ProjectReference Include="..\ResumeHexagonal.Domain\ResumeHexagonal.Domain.csproj" />
+    <ProjectReference Include="..\ResumeHexagonal.Infrastructure\ResumeHexagonal.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
