@@ -1,0 +1,28 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+
+[*.cs]
+# Enforce primary constructor syntax for C# classes.
+csharp_prefer_primary_constructors = true:error
+dotnet_diagnostic.IDE0290.severity = error
+
+# Keep the project style strict and consistent.
+# The following style analyzers are intentionally enforced at build time.
+
+# This project is intentionally minimal API + handler-based.
+# Controllers are disallowed, so build should fail if MapControllers or ControllerBase is used.
+dotnet_diagnostic.IDE0060.severity = none
+
+# Keep code clean and explicit.
+# csharp_style_var_when_type_is_obvious = true:error
+# csharp_style_expression_bodied_methods = true:error
+
+# Do not require XML docs for internal code.
+dotnet_diagnostic.CS1591.severity = none

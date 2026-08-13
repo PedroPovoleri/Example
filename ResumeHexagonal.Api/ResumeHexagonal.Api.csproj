@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest</AnalysisLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ResumeHexagonal.Application\ResumeHexagonal.Application.csproj" />
+    <ProjectReference Include="..\ResumeHexagonal.Infrastructure\ResumeHexagonal.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <Target Name="ValidateMinimalApiConvention" BeforeTargets="Build">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;$files = Get-ChildItem -Path '$(MSBuildProjectDirectory)' -Recurse -Filter *.cs; $hits = @(); foreach ($file in $files) { $content = Get-Content -Raw -Path $file.FullName; if ($content -match 'ControllerBase|MapControllers\s*\(') { $hits += $file.FullName } }; if ($hits.Count -gt 0) { throw 'Minimal API convention violation: use handlers and MapGroup/MapPost/MapGet instead of ControllerBase or MapControllers. Offending files: ' + ($hits -join '; ') }&quot;" />
+  </Target>
+
+</Project>

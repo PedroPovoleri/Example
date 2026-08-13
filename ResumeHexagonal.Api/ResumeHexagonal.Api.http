@@ -1,0 +1,6 @@
+@ResumeHexagonal.Api_HostAddress = http://localhost:5047
+
+GET {{ResumeHexagonal.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

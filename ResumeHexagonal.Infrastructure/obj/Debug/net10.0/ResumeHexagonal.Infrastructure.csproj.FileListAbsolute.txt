@@ -1,0 +1,15 @@
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\bin\Debug\net10.0\ResumeHexagonal.Infrastructure.deps.json
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\bin\Debug\net10.0\ResumeHexagonal.Infrastructure.dll
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\bin\Debug\net10.0\ResumeHexagonal.Infrastructure.pdb
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\bin\Debug\net10.0\ResumeHexagonal.Domain.dll
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\bin\Debug\net10.0\ResumeHexagonal.Domain.pdb
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\obj\Debug\net10.0\ResumeHexagonal.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\obj\Debug\net10.0\ResumeHexagonal.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\obj\Debug\net10.0\ResumeHexagonal.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\obj\Debug\net10.0\ResumeHexagonal.Infrastructure.AssemblyInfo.cs
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\obj\Debug\net10.0\ResumeHexagonal.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\obj\Debug\net10.0\ResumeHe.56E00CD5.Up2Date
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\obj\Debug\net10.0\ResumeHexagonal.Infrastructure.dll
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\obj\Debug\net10.0\refint\ResumeHexagonal.Infrastructure.dll
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\obj\Debug\net10.0\ResumeHexagonal.Infrastructure.pdb
+C:\Users\pemlk\Desktop\Example\ResumeHexagonal.Infrastructure\obj\Debug\net10.0\ref\ResumeHexagonal.Infrastructure.dll
