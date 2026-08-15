@@ -39,11 +39,3 @@ jobs:
       with:
         name: test-results
         path: '**/test-results.trx'
-        
-    - name: Publish test results
-      if: always()
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      with:
-        files: '**/test-results.trx'
-        check_name: Test Results
-        comment_mode: always
