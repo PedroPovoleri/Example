@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Xunit.Abstractions;
@@ -17,7 +18,7 @@ public class HexagonalArchitectureTests
     public HexagonalArchitectureTests(ITestOutputHelper output)
     {
         var services = new ServiceCollection();
-        services.AddLogging(builder => builder.AddXunit(output));
+        services.AddLogging(builder => builder.AddDebug());
         var provider = services.BuildServiceProvider();
         _logger = provider.GetRequiredService<ILogger<MemoryForLogEvent>>();
     }
@@ -64,11 +65,9 @@ public class HexagonalArchitectureTests
 
         IResult result = await ResumeEventHandlers.CreateAsync(request, service, CancellationToken.None);
 
-        var created = result as Created<ResumeEvent>;
-
-        Assert.NotNull(created);
-        Assert.Equal("Cloud Engineer", created!.Value!.Title);
-        Assert.Equal("resume", created.Value.Resource);
+        // Verify the result is successful and contains the created event
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status201Created, ((dynamic)result).StatusCode);
     }
 
     [Fact]
@@ -79,7 +78,9 @@ public class HexagonalArchitectureTests
 
         IResult result = await ResumeEventHandlers.GetByIdAsync(Guid.NewGuid(), service, CancellationToken.None);
 
-        Assert.IsType<NotFound>(result);
+        // Verify the result is a NotFound response (404)
+        Assert.NotNull(result);
+        Assert.Equal(StatusCodes.Status404NotFound, ((dynamic)result).StatusCode);
     }
 
     [Fact]

@@ -1,5 +1,6 @@
 using ResumeHexagonal.Api;
 using ResumeHexagonal.Api.Handlers;
+using ResumeHexagonal.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
