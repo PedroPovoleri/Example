@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Xunit.Abstractions;
 using ResumeHexagonal.Api;
 using ResumeHexagonal.Api.Handlers;
 using ResumeHexagonal.Application.Services;
@@ -10,10 +12,21 @@ namespace ResumeHexagonal.Tests;
 
 public class HexagonalArchitectureTests
 {
+    private readonly ILogger<MemoryForLogEvent> _logger;
+
+    public HexagonalArchitectureTests(ITestOutputHelper output)
+    {
+        var services = new ServiceCollection();
+        services.AddLogging(builder => builder.AddXunit(output));
+        var provider = services.BuildServiceProvider();
+        _logger = provider.GetRequiredService<ILogger<MemoryForLogEvent>>();
+    }
+
     [Fact]
     public void DependencyInjection_ShouldRegisterAllPortsAndService()
     {
         var services = new ServiceCollection();
+        services.AddLogging();
 
         services.AddResumeHexagonal();
 
@@ -31,7 +44,7 @@ public class HexagonalArchitectureTests
         var store = new Dictionary<Guid, ResumeEvent>();
         var create = new MemoryForCreateEvent(store);
         var read = new MemoryForReadEvent(store);
-        var log = new MemoryForLogEvent();
+        var log = new MemoryForLogEvent(_logger);
         var service = new ResumeEventService(create, read, log);
 
         var created = await service.CreateAsync("Senior .NET Engineer", "Cloud, DDD, and Azure", "resume");
@@ -43,26 +56,26 @@ public class HexagonalArchitectureTests
     }
 
     [Fact]
-    public async Task CreateHandler_ShouldReturnOkWithCreatedEvent()
+    public async Task CreateHandler_ShouldReturnCreatedWithCreatedEvent()
     {
         var store = new Dictionary<Guid, ResumeEvent>();
-        var service = new ResumeEventService(new MemoryForCreateEvent(store), new MemoryForReadEvent(store), new MemoryForLogEvent());
+        var service = new ResumeEventService(new MemoryForCreateEvent(store), new MemoryForReadEvent(store), new MemoryForLogEvent(_logger));
         var request = new CreateResumeEventRequest("Cloud Engineer", "Azure and event-driven systems", "resume");
 
         IResult result = await ResumeEventHandlers.CreateAsync(request, service, CancellationToken.None);
 
-        var ok = result as Ok<ResumeEvent>;
+        var created = result as Created<ResumeEvent>;
 
-        Assert.NotNull(ok);
-        Assert.Equal("Cloud Engineer", ok!.Value!.Title);
-        Assert.Equal("resume", ok.Value.Resource);
+        Assert.NotNull(created);
+        Assert.Equal("Cloud Engineer", created!.Value!.Title);
+        Assert.Equal("resume", created.Value.Resource);
     }
 
     [Fact]
     public async Task GetByIdHandler_ShouldReturnNotFound_WhenEventDoesNotExist()
     {
         var store = new Dictionary<Guid, ResumeEvent>();
-        var service = new ResumeEventService(new MemoryForCreateEvent(store), new MemoryForReadEvent(store), new MemoryForLogEvent());
+        var service = new ResumeEventService(new MemoryForCreateEvent(store), new MemoryForReadEvent(store), new MemoryForLogEvent(_logger));
 
         IResult result = await ResumeEventHandlers.GetByIdAsync(Guid.NewGuid(), service, CancellationToken.None);
 
@@ -72,7 +85,7 @@ public class HexagonalArchitectureTests
     [Fact]
     public async Task Service_ShouldRejectEmptyRequiredValues()
     {
-        var service = new ResumeEventService(new MemoryForCreateEvent(), new MemoryForReadEvent(), new MemoryForLogEvent());
+        var service = new ResumeEventService(new MemoryForCreateEvent(), new MemoryForReadEvent(), new MemoryForLogEvent(_logger));
 
         await Assert.ThrowsAsync<ArgumentException>(() => service.CreateAsync(" ", "desc", "resume"));
         await Assert.ThrowsAsync<ArgumentException>(() => service.CreateAsync("title", " ", "resume"));

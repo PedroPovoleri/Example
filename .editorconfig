@@ -9,14 +9,31 @@ indent_size = 4
 trim_trailing_whitespace = true
 
 [*.cs]
-# Fails the solution when a class uses a non-primary constructor.
+# Hexagonal Architecture Rules
+
+# Enforce primary constructors for all types
+csharp_prefer_primary_constructors = true:error
 dotnet_diagnostic.IDE0290.severity = error
 
-# Fails the solution when the API layer is implemented with controllers instead of handlers.
-# This complements the project-level validation target that rejects ControllerBase or MapControllers.
+# Enforce sealed classes for concrete implementations (ports, adapters)
+csharp_style_prefer_pattern_matching = true:suggestion
+dotnet_style_sealed_types = true:suggestion
 
-# Keep the project style explicit and consistent.
-csharp_prefer_primary_constructors = true:error
+# Enforce private fields with underscore prefix
+dotnet_naming_rule.private_fields_should_be_underscore_prefixed.severity = suggestion
+dotnet_naming_rule.private_fields_should_be_underscore_prefixed.symbols = private_fields
+dotnet_naming_rule.private_fields_should_be_underscore_prefixed.style = underscore_prefix_style
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_style.underscore_prefix_style.required_prefix = _
+dotnet_naming_style.underscore_prefix_style.capitalization = camel_case
 
-# Avoid XML-doc noise for this sample project.
+# Dispose rules
+dotnet_diagnostic.CA1816.severity = none
+dotnet_diagnostic.CA1806.severity = none
+
+# Avoid XML-doc noise for this sample project
 dotnet_diagnostic.CS1591.severity = none
+
+# No controllers in hexagonal architecture (use handlers instead)
+dotnet_diagnostic.CA1050.severity = warning
